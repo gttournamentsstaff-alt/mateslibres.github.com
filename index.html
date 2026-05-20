@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MateLibre – Cursos de matemáticas de bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--bg2:#161b27;--surface:#1d2333;--border:#2a3248;--accent:#6ee7b7;--accent2:#f59e0b;--accent3:#818cf8;--text:#e2e8f0;--muted:#8494b4}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Source Sans 3',sans-serif;line-height:1.65;overflow-x:hidden}
+.container{max-width:1080px;margin:0 auto;padding:0 24px}
+a{text-decoration:none;color:inherit}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(110,231,183,.1),transparent 70%),var(--bg)}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(110,231,183,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(110,231,183,.035) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+.hero-inner{position:relative;z-index:1;padding:80px 0 60px}
+.badge{display:inline-block;border:1px solid var(--accent);color:var(--accent);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:30px;animation:fadeD .5s ease both}
+.hero h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(3rem,9vw,6.8rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:14px;animation:fadeD .5s .1s ease both;font-weight:normal}
+.hero h1 em{color:var(--accent);font-style:italic}
+.subtitle{font-size:1.05rem;color:var(--muted);max-width:540px;margin-bottom:40px;animation:fadeD .5s .2s ease both;line-height:1.7}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeD .5s .3s ease both}
+.btn-p{background:var(--accent);color:#0f1117;font-weight:600;font-size:.88rem;padding:12px 28px;border-radius:3px;transition:opacity .2s,transform .2s}
+.btn-p:hover{opacity:.85;transform:translateY(-2px)}
+.btn-s{border:1px solid var(--border);color:var(--text);font-size:.88rem;font-weight:500;padding:12px 28px;border-radius:3px;transition:border-color .2s,transform .2s}
+.btn-s:hover{border-color:var(--accent);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:44px;flex-wrap:wrap;margin-top:64px;padding-top:36px;border-top:1px solid var(--border);animation:fadeD .5s .4s ease both}
+.stat-val{font-family:Georgia,serif;font-size:2rem;color:var(--accent2)}
+.stat-lbl{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner a{padding:15px 20px;font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-inner a:hover{color:var(--accent);border-color:var(--accent)}
+.section{padding:88px 0}
+.section.dark{background:var(--bg2)}
+.section h2{font-family:Georgia,serif;font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:10px;font-weight:normal;letter-spacing:-.01em}
+.lead{color:var(--muted);font-size:.98rem;max-width:620px;margin-bottom:32px;line-height:1.75}
+.note{margin-top:24px;padding:12px 18px;border-left:3px solid var(--accent2);background:rgba(245,158,11,.05);border-radius:0 3px 3px 0;font-size:.85rem;color:var(--muted)}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:28px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:28px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px;margin-top:24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.card h3{font-family:Georgia,serif;font-size:.95rem;font-weight:normal;margin-bottom:8px}
+.card p{font-size:.84rem;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px}
+.panel h3{font-family:Georgia,serif;font-size:.95rem;font-weight:normal;margin-bottom:12px}
+.panel.acc{border-color:var(--accent)}
+.list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.list li{font-size:.85rem;color:var(--muted);padding-left:16px;position:relative}
+.list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:.72rem;top:3px}
+.callout{margin-top:32px;background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:22px}
+.callout-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:8px}
+.callout p{font-size:.87rem;color:var(--muted)}
+.ftr-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+.ch-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px;cursor:pointer;transition:border-color .22s,transform .22s,background .22s;position:relative;overflow:hidden}
+.ch-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent3));transform:scaleX(0);transform-origin:left;transition:transform .28s}
+.ch-card:hover{border-color:var(--accent3);transform:translateY(-3px);background:rgba(129,140,248,.04)}
+.ch-card:hover::after{transform:scaleX(1)}
+.ch-num{font-size:.68rem;color:var(--accent3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.ch-card h3{font-family:Georgia,serif;font-size:.92rem;font-weight:normal;margin-bottom:6px}
+.ch-card p{font-size:.79rem;color:var(--muted);line-height:1.45}
+.ch-tag{display:inline-block;margin-top:12px;padding:2px 8px;border-radius:2px;font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.t0{background:rgba(110,231,183,.12);color:var(--accent)}
+.t1{background:rgba(245,158,11,.12);color:var(--accent2)}
+.t2{background:rgba(129,140,248,.12);color:var(--accent3)}
+.lvl-h{font-size:.8rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-top:40px;margin-bottom:4px}
+.lvl-h.l1{color:var(--accent2)}
+.lvl-h.l2{color:var(--accent3)}
+.modal-bg{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);overflow-y:auto;padding:40px 16px}
+.modal-bg.open{display:flex;align-items:flex-start;justify-content:center}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:10px;width:100%;max-width:760px;animation:popIn .28s cubic-bezier(.2,1,.4,1) both;position:relative}
+.modal-head{padding:32px 36px 24px;border-bottom:1px solid var(--border)}
+.modal-close{position:absolute;top:18px;right:22px;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1;transition:color .2s}
+.modal-close:hover{color:var(--text)}
+.modal-badge{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);font-weight:600;margin-bottom:10px}
+.modal-title{font-family:Georgia,serif;font-size:1.9rem;font-weight:normal;margin-bottom:10px;letter-spacing:-.01em}
+.modal-desc{font-size:.9rem;color:var(--muted);line-height:1.7}
+.modal-body{padding:28px 36px 36px}
+.course h2{font-family:Georgia,serif;font-size:1.3rem;font-weight:normal;margin:36px 0 12px;padding-top:36px;border-top:1px solid var(--border);color:var(--text)}
+.course h2:first-child{border-top:none;padding-top:0;margin-top:0}
+.course p{font-size:.9rem;color:var(--muted);margin-bottom:12px;line-height:1.75}
+.course p strong{color:var(--text);font-weight:600}
+.def{background:rgba(110,231,183,.06);border:1px solid rgba(110,231,183,.22);border-radius:5px;padding:16px 18px;margin:16px 0}
+.def .lbl{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:7px}
+.def p{color:var(--text);font-size:.88rem;margin:0}
+.thm{background:rgba(129,140,248,.06);border:1px solid rgba(129,140,248,.22);border-radius:5px;padding:16px 18px;margin:16px 0}
+.thm .lbl{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent3);font-weight:600;margin-bottom:7px}
+.thm p{color:var(--text);font-size:.88rem;margin:0}
+.ex{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18);border-radius:5px;padding:16px 18px;margin:16px 0}
+.ex .lbl{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent2);font-weight:600;margin-bottom:7px}
+.ex p{color:var(--text);font-size:.88rem;margin-bottom:6px}
+.ex .sol{color:var(--muted);font-size:.84rem;margin-top:8px;padding-top:8px;border-top:1px solid rgba(245,158,11,.14)}
+.ex .sol strong{color:var(--accent2)}
+.m{font-family:'Courier New',Courier,monospace;font-size:.86rem;background:var(--surface);padding:1px 6px;border-radius:3px;color:var(--accent);white-space:nowrap}
+.mb{font-family:'Courier New',Courier,monospace;font-size:.86rem;background:var(--surface);border:1px solid var(--border);padding:12px 16px;border-radius:5px;color:var(--accent);margin:12px 0;overflow-x:auto;line-height:2.1;display:block}
+.exo{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:16px 18px;margin:16px 0}
+.exo .lbl{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:7px}
+.exo p{color:var(--text);font-size:.88rem;margin-bottom:4px}
+.exo ol{padding-left:18px;color:var(--muted);font-size:.86rem;line-height:1.9}
+.tsol{display:inline-block;margin-top:9px;color:var(--accent3);font-size:.79rem;cursor:pointer;border:1px solid rgba(129,140,248,.35);padding:3px 10px;border-radius:3px;transition:background .2s}
+.tsol:hover{background:rgba(129,140,248,.1)}
+.hsol{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--border);color:var(--muted);font-size:.84rem;line-height:1.75}
+.hsol.on{display:block}
+.modal-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+.mnav-btn{display:flex;flex-direction:column;gap:3px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:5px;cursor:pointer;transition:border-color .2s;max-width:240px}
+.mnav-btn:hover{border-color:var(--accent)}
+.mnav-dir{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.mnav-title{font-family:Georgia,serif;font-size:.88rem;color:var(--text)}
+.footer{background:var(--bg);border-top:1px solid var(--border);padding:24px 0}
+.ftr-line{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.sep{opacity:.4}
+@keyframes fadeD{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+</style>
+</head>
+<body>
+
+<div id="modal-bg" class="modal-bg" onclick="bgClose(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    <div class="modal-head">
+      <div class="modal-badge" id="m-badge"></div>
+      <h2 class="modal-title" id="m-title"></h2>
+      <p class="modal-desc" id="m-desc"></p>
+    </div>
+    <div class="modal-body">
+      <div class="course" id="m-body"></div>
+      <div class="modal-nav">
+        <div class="mnav-btn" id="m-prev" onclick="navModal(-1)" style="display:none">
+          <span class="mnav-dir">&#8592; Anterior</span>
+          <span class="mnav-title" id="m-prev-t"></span>
+        </div>
+        <div style="flex:1"></div>
+        <div class="mnav-btn" id="m-next" onclick="navModal(1)" style="display:none">
+          <span class="mnav-dir">Siguiente &#8594;</span>
+          <span class="mnav-title" id="m-next-t"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner container">
+    <a href="#inicio">Inicio</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#metodo">M&eacute;todo</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="hero-inner container">
+    <div class="badge">Acceso libre &middot; Bachillerato</div>
+    <h1>Mate<em>Libre</em></h1>
+    <p class="subtitle">Cursos de matem&aacute;ticas de bachillerato completamente gratuitos. 4.&ordm; ESO, 1.&ordm; y 2.&ordm; de Bachillerato.</p>
+    <div class="hero-btns">
+      <a class="btn-p" href="#cursos">Ver los cursos</a>
+      <a class="btn-s" href="#metodo">Nuestro m&eacute;todo</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">22</div><div class="stat-lbl">Cap&iacute;tulos</div></div>
+      <div><div class="stat-val">100%</div><div class="stat-lbl">Gratuito</div></div>
+      <div><div class="stat-val">3</div><div class="stat-lbl">Niveles</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="section dark" id="cursos">
+  <div class="container">
+    <h2>Todos los cursos</h2>
+    <p class="lead">Haz clic en un cap&iacute;tulo para abrir el curso directamente.</p>
+    <p class="lvl-h">4.&ordm; ESO</p>
+    <div class="grid-4">
+      <div class="ch-card" onclick="open_('c01')"><div class="ch-num">Cap. 01</div><h3>N&uacute;meros reales</h3><p>Racionales, irracionales, potencias y radicales.</p><span class="ch-tag t0">4.&ordm; ESO</span></div>
+      <div class="ch-card" onclick="open_('c02')"><div class="ch-num">Cap. 02</div><h3>Polinomios</h3><p>Operaciones, factorizaci&oacute;n y fracciones algebraicas.</p><span class="ch-tag t0">4.&ordm; ESO</span></div>
+      <div class="ch-card" onclick="open_('c03')"><div class="ch-num">Cap. 03</div><h3>Ecuaciones e inecuaciones</h3><p>1.er y 2.&ordm; grado, sistemas lineales.</p><span class="ch-tag t0">4.&ordm; ESO</span></div>
+      <div class="ch-card" onclick="open_('c04')"><div class="ch-num">Cap. 04</div><h3>Funciones elementales</h3><p>Dominio, recorrido y representaci&oacute;n gr&aacute;fica.</p><span class="ch-tag t0">4.&ordm; ESO</span></div>
+      <div class="ch-card" onclick="open_('c05')"><div class="ch-num">Cap. 05</div><h3>Geometr&iacute;a y vectores</h3><p>Trigonometr&iacute;a b&aacute;sica y vectores en el plano.</p><span class="ch-tag t0">4.&ordm; ESO</span></div>
+      <div class="ch-card" onclick="open_('c06')"><div class="ch-num">Cap. 06</div><h3>Estad&iacute;stica y probabilidad</h3><p>Frecuencias, medidas y probabilidad cl&aacute;sica.</p><span class="ch-tag t0">4.&ordm; ESO</span></div>
+    </div>
+    <p class="lvl-h l1">1.&ordm; Bachillerato</p>
+    <div class="grid-4">
+      <div class="ch-card" onclick="open_('c07')"><div class="ch-num">Cap. 07</div><h3>N&uacute;meros complejos</h3><p>Forma bin&oacute;mica, m&oacute;dulo y forma polar.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c08')"><div class="ch-num">Cap. 08</div><h3>&Aacute;lgebra matricial</h3><p>Matrices, determinantes e inversa.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c09')"><div class="ch-num">Cap. 09</div><h3>Sistemas lineales</h3><p>Gauss, Cramer y discusi&oacute;n de sistemas.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c10')"><div class="ch-num">Cap. 10</div><h3>Geometr&iacute;a anal&iacute;tica</h3><p>Rectas y planos, distancias y &aacute;ngulos.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c11')"><div class="ch-num">Cap. 11</div><h3>Funciones y l&iacute;mites</h3><p>L&iacute;mites, continuidad y as&iacute;ntotas.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c12')"><div class="ch-num">Cap. 12</div><h3>Derivadas</h3><p>Reglas, regla de la cadena y tangentes.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c13')"><div class="ch-num">Cap. 13</div><h3>Aplicaciones de la derivada</h3><p>Extremos, monoto&iacute;a y representaci&oacute;n.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c14')"><div class="ch-num">Cap. 14</div><h3>Probabilidad condicionada</h3><p>Bayes y variables aleatorias discretas.</p><span class="ch-tag t1">1.&ordm; Bach.</span></div>
+    </div>
+    <p class="lvl-h l2">2.&ordm; Bachillerato (EBAU)</p>
+    <div class="grid-4">
+      <div class="ch-card" onclick="open_('c15')"><div class="ch-num">Cap. 15</div><h3>&Aacute;lgebra lineal avanzada</h3><p>Rango, valores propios y diagonalizaci&oacute;n.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c16')"><div class="ch-num">Cap. 16</div><h3>Geometr&iacute;a en el espacio</h3><p>Posiciones relativas, distancias y &aacute;ngulos.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c17')"><div class="ch-num">Cap. 17</div><h3>C&aacute;lculo integral</h3><p>Primitivas, integrales y c&aacute;lculo de &aacute;reas.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c18')"><div class="ch-num">Cap. 18</div><h3>T&eacute;cnicas de integraci&oacute;n</h3><p>Por partes, cambio de variable y fracciones.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c19')"><div class="ch-num">Cap. 19</div><h3>Funciones trascendentes</h3><p>Exponenciales, logaritmos y trigonometr&iacute;a.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c20')"><div class="ch-num">Cap. 20</div><h3>Distribuciones de probabilidad</h3><p>Binomial, normal y contraste de hip&oacute;tesis.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c21')"><div class="ch-num">Cap. 21</div><h3>Estad&iacute;stica inferencial</h3><p>Estimaci&oacute;n e intervalos de confianza.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+      <div class="ch-card" onclick="open_('c22')"><div class="ch-num">Cap. 22</div><h3>Repaso EBAU</h3><p>Problemas tipo de selectividad por bloques.</p><span class="ch-tag t2">2.&ordm; Bach.</span></div>
+    </div>
+    <p class="note">Haz clic en cualquier cap&iacute;tulo para abrir el curso. Nuevos contenidos cada semana.</p>
+  </div>
+</section>
+
+<section class="section" id="metodo">
+  <div class="container">
+    <h2>Nuestro m&eacute;todo</h2>
+    <p class="lead">Cada curso sigue una estructura sencilla y eficaz: definiciones esenciales, ejemplos clave y ejercicios.</p>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Estructura de un cap&iacute;tulo</h3>
+        <ul class="list">
+          <li><strong>Definiciones</strong> encuadradas con rigor.</li>
+          <li><strong>Teoremas clave</strong> sin demostraciones largas.</li>
+          <li><strong>Ejemplos resueltos</strong> paso a paso.</li>
+          <li><strong>Ejercicios</strong> con soluciones desplegables.</li>
+        </ul>
+      </div>
+      <div class="panel acc">
+        <h3>&iquest;Por qu&eacute; gratuito?</h3>
+        <p style="font-size:.87rem;color:var(--muted)">Creemos que el acceso a una buena educaci&oacute;n matem&aacute;tica no debe depender de medios econ&oacute;micos. MateLibre lo mantienen docentes y estudiantes voluntarios.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-lbl">&iquest;Quieres contribuir?</div>
+      <p>El proyecto est&aacute; alojado en GitHub. Puedes proponer correcciones, nuevos ejercicios o cap&iacute;tulos completos mediante una pull request.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="faq">
+  <div class="container">
+    <h2>Preguntas frecuentes</h2>
+    <div class="grid-2" style="margin-top:28px">
+      <div class="panel"><h3>&iquest;Es realmente gratuito?</h3><p style="font-size:.87rem;color:var(--muted)">S&iacute;, sin excepciones. Sin partes de pago, sin suscripci&oacute;n. Todo el contenido es libre y permanece as&iacute;.</p></div>
+      <div class="panel"><h3>&iquest;Necesito registrarme?</h3><p style="font-size:.87rem;color:var(--muted)">No. Sin cuenta, sin correo electr&oacute;nico. Haz clic en el cap&iacute;tulo y empieza a estudiar.</p></div>
+      <div class="panel"><h3>&iquest;Para qu&eacute; nivel son los cursos?</h3><p style="font-size:.87rem;color:var(--muted)">Cubren 4.&ordm; ESO, 1.&ordm; y 2.&ordm; de Bachillerato, siguiendo los programas oficiales espa&ntilde;oles.</p></div>
+      <div class="panel"><h3>&iquest;C&oacute;mo puedo contribuir?</h3><p style="font-size:.87rem;color:var(--muted)">A trav&eacute;s de GitHub. Puedes proponer correcciones o redactar cap&iacute;tulos completos en una pull request.</p></div>
+    </div>
+    <div class="ftr-btns">
+      <a class="btn-p" href="#cursos">Empezar a estudiar</a>
+      <a class="btn-s" href="#inicio">Volver arriba</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="ftr-line">
+      <span>MateLibre &ndash; Cursos de matem&aacute;ticas de bachillerato</span>
+      <span class="sep">&bull;</span>
+      <span>Acceso libre y gratuito</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ORDER=['c01','c02','c03','c04','c05','c06','c07','c08','c09','c10','c11','c12','c13','c14','c15','c16','c17','c18','c19','c20','c21','c22'];
+const C={
+c01:{badge:'Cap. 01 · 4.º ESO',title:'Números reales',desc:'Clasificación de los números reales, potencias y radicales.',body:`<h2>El conjunto de los números reales</h2><div class="def"><div class="lbl">Definición</div><p>El conjunto <span class="m">ℝ</span> engloba todos los números que pueden situarse en la recta numérica. Satisface los axiomas de cuerpo ordenado completo.</p></div><p>Jerarquía de conjuntos numéricos:</p><code class="mb">ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ</code><h2>Racionales e irracionales</h2><div class="def"><div class="lbl">Número racional</div><p>Se expresa como <span class="m">p/q</span> con <span class="m">p,q∈ℤ</span>, <span class="m">q≠0</span>. Su decimal es exacto o periódico.</p></div><div class="def"><div class="lbl">Número irracional</div><p>No puede expresarse como cociente de enteros. Su decimal es infinito y no periódico. Ejemplos: <span class="m">√2</span>, <span class="m">π</span>, <span class="m">e</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Clasificar: <span class="m">0.333…</span>, <span class="m">√5</span>, <span class="m">−7/3</span>, <span class="m">π</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">0.333…=1/3</span> → racional. <span class="m">√5</span> → irracional. <span class="m">−7/3</span> → racional. <span class="m">π</span> → irracional.</div></div><h2>Potencias y radicales</h2><div class="thm"><div class="lbl">Propiedades de las potencias</div><p><span class="m">aⁿ·aᵐ=aⁿ⁺ᵐ</span> · <span class="m">aⁿ/aᵐ=aⁿ⁻ᵐ</span> · <span class="m">(aⁿ)ᵐ=aⁿᵐ</span> · <span class="m">a⁰=1</span> (a≠0)</p></div><p>Para racionalizar un denominador se multiplica por el conjugado: <span class="m">1/(√a+b)·(√a−b)/(√a−b)</span>.</p><div class="ex"><div class="lbl">Ejemplo</div><p>Simplificar <span class="m">(2³·2⁻¹)/2²</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">2³·2⁻¹=2²</span>, luego <span class="m">2²/2²=1</span>.</div></div><div class="exo"><div class="lbl">Ejercicio</div><p>Racionalizar <span class="m">1/(√3+1)</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">Multiplicamos por <span class="m">(√3−1)/(√3−1)</span>: resultado <span class="m">(√3−1)/2</span>.</div></div>`},
+c02:{badge:'Cap. 02 · 4.º ESO',title:'Polinomios y fracciones algebraicas',desc:'Operaciones, teorema del resto, factorización y fracciones algebraicas.',body:`<h2>Definición</h2><div class="def"><div class="lbl">Polinomio</div><p><span class="m">P(x)=aₙxⁿ+…+a₁x+a₀</span> con <span class="m">aₙ≠0</span>. El grado es <span class="m">n</span>. Una raíz es un valor <span class="m">r</span> tal que <span class="m">P(r)=0</span>.</p></div><h2>Teorema del resto y del factor</h2><div class="thm"><div class="lbl">Teorema del resto</div><p>El resto de dividir <span class="m">P(x)</span> entre <span class="m">(x−a)</span> es <span class="m">P(a)</span>.</p></div><div class="thm"><div class="lbl">Teorema del factor</div><p><span class="m">(x−a)</span> divide a <span class="m">P(x)</span> ⟺ <span class="m">P(a)=0</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>¿Es <span class="m">x=1</span> raíz de <span class="m">P(x)=x³−3x+2</span>?</p><div class="sol"><strong>Solución:</strong> <span class="m">P(1)=1−3+2=0</span>. Sí.</div></div><h2>Factorización</h2><p>Técnicas: factor común, identidades notables (<span class="m">a²−b²=(a+b)(a−b)</span>), y búsqueda de raíces enteras con Ruffini.</p><div class="ex"><div class="lbl">Ejemplo</div><p>Factorizar <span class="m">P(x)=x³−6x²+11x−6</span>.</p><div class="sol"><strong>Solución:</strong> Raíces: <span class="m">1,2,3</span> → <span class="m">P(x)=(x−1)(x−2)(x−3)</span>.</div></div><h2>Fracciones algebraicas</h2><div class="def"><div class="lbl">Definición</div><p>Cociente <span class="m">P(x)/Q(x)</span> con <span class="m">Q≠0</span>. Simplificar: factorizar y cancelar factores comunes.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Simplificar <span class="m">(x²−4)/(x²−x−2)</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">Num: <span class="m">(x−2)(x+2)</span>. Den: <span class="m">(x−2)(x+1)</span>. Resultado: <span class="m">(x+2)/(x+1)</span>, con <span class="m">x≠2</span>.</div></div>`},
+c03:{badge:'Cap. 03 · 4.º ESO',title:'Ecuaciones e inecuaciones',desc:'Ecuaciones de 1.er y 2.º grado, sistemas lineales e inecuaciones.',body:`<h2>Ecuaciones de segundo grado</h2><div class="thm"><div class="lbl">Fórmula general</div><p><span class="m">ax²+bx+c=0</span> → <span class="m">x=(−b±√(b²−4ac))/(2a)</span></p></div><p>El discriminante <span class="m">Δ=b²−4ac</span>: <span class="m">Δ>0</span> → 2 soluciones; <span class="m">Δ=0</span> → raíz doble; <span class="m">Δ&lt;0</span> → sin solución real.</p><div class="ex"><div class="lbl">Ejemplo</div><p>Resolver <span class="m">2x²−5x+2=0</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">Δ=9</span>. <span class="m">x=(5±3)/4</span> → <span class="m">x₁=2</span>, <span class="m">x₂=1/2</span>.</div></div><h2>Sistemas de ecuaciones</h2><p>Métodos: sustitución, igualación y reducción. El método de reducción suma o resta ecuaciones multiplicadas por constantes para eliminar una incógnita.</p><div class="ex"><div class="lbl">Ejemplo</div><p>Resolver <span class="m">2x+y=5</span> y <span class="m">x−y=1</span>.</p><div class="sol"><strong>Reducción:</strong> Sumando: <span class="m">3x=6→x=2</span>. Luego <span class="m">y=1</span>.</div></div><h2>Inecuaciones</h2><div class="def"><div class="lbl">Regla clave</div><p>Al multiplicar/dividir por un número negativo, el sentido de la desigualdad se invierte.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Resolver <span class="m">−3x+4≤1</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">−3x≤−3</span> → dividir entre −3 invierte → <span class="m">x≥1</span>. Solución: <span class="m">[1,+∞)</span>.</div></div>`},
+c04:{badge:'Cap. 04 · 4.º ESO',title:'Funciones elementales',desc:'Dominio, recorrido, propiedades globales y funciones básicas.',body:`<h2>Concepto de función</h2><div class="def"><div class="lbl">Definición</div><p>Una función <span class="m">f:A→B</span> asigna a cada elemento de <span class="m">A</span> exactamente un elemento de <span class="m">B</span>. El dominio es <span class="m">A</span> y el recorrido el conjunto de valores alcanzados.</p></div><h2>Dominio natural</h2><p>Se excluyen los <span class="m">x</span> que hacen la expresión indefinida: denominadores nulos, radicandos negativos (índice par), argumentos de logaritmo no positivos.</p><div class="ex"><div class="lbl">Ejemplo</div><p>Dominio de <span class="m">f(x)=√(x−1)/(x−3)</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">x≥1</span> y <span class="m">x≠3</span> → Dom=<span class="m">[1,3)∪(3,+∞)</span>.</div></div><h2>Propiedades globales</h2><div class="def"><div class="lbl">Paridad</div><p>Par: <span class="m">f(−x)=f(x)</span>. Impar: <span class="m">f(−x)=−f(x)</span>.</p></div><div class="thm"><div class="lbl">Funciones principales</div><p>Lineal: <span class="m">f(x)=mx+b</span>. Cuadrática: <span class="m">f(x)=ax²+bx+c</span>, vértice en <span class="m">x=−b/(2a)</span>. Hipérbola: <span class="m">f(x)=k/x</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Determinar si <span class="m">f(x)=x³−x</span> es par, impar o ninguna.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">f(−x)=−x³+x=−f(x)</span> → la función es impar.</div></div>`},
+c05:{badge:'Cap. 05 · 4.º ESO',title:'Geometría y vectores',desc:'Trigonometría en el triángulo rectángulo y vectores en el plano.',body:`<h2>Razones trigonométricas</h2><div class="def"><div class="lbl">En el triángulo rectángulo</div><p><span class="m">sen α=opuesto/hipotenusa</span>, <span class="m">cos α=adyacente/hipotenusa</span>, <span class="m">tan α=sen α/cos α</span>.</p></div><div class="thm"><div class="lbl">Identidad fundamental</div><p><span class="m">sen²α+cos²α=1</span></p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Catetos 3 y 4. Razones del ángulo opuesto al cateto 3.</p><div class="sol"><strong>Solución:</strong> Hipotenusa=5. <span class="m">sen α=3/5</span>, <span class="m">cos α=4/5</span>, <span class="m">tan α=3/4</span>.</div></div><h2>Vectores en el plano</h2><div class="def"><div class="lbl">Operaciones</div><p>Módulo: <span class="m">|v⃗|=√(a²+b²)</span>. Suma: <span class="m">(a,b)+(c,d)=(a+c,b+d)</span>. Producto escalar: <span class="m">u⃗·v⃗=ac+bd=|u⃗||v⃗|cos θ</span>. Si <span class="m">u⃗·v⃗=0</span> → perpendiculares.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Dados <span class="m">u⃗=(3,4)</span> y <span class="m">v⃗=(1,−2)</span>, calcular <span class="m">u⃗·v⃗</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">u⃗·v⃗=3·1+4·(−2)=3−8=−5</span>.</div></div>`},
+c06:{badge:'Cap. 06 · 4.º ESO',title:'Estadística y probabilidad',desc:'Medidas de centralización, dispersión y probabilidad clásica.',body:`<h2>Medidas de centralización</h2><div class="def"><div class="lbl">Media aritmética</div><p><span class="m">x̄=(Σxᵢ·fᵢ)/n</span>. La mediana es el valor central. La moda es el valor más frecuente.</p></div><div class="def"><div class="lbl">Desviación típica</div><p><span class="m">σ=√(Σfᵢ(xᵢ−x̄)²/n)</span>. Mide la dispersión respecto a la media.</p></div><h2>Probabilidad clásica</h2><div class="def"><div class="lbl">Regla de Laplace</div><p><span class="m">P(A)=casos favorables/casos totales</span>. Válida cuando todos los resultados son equiprobables.</p></div><div class="thm"><div class="lbl">Propiedades</div><p><span class="m">0≤P(A)≤1</span> · <span class="m">P(Ā)=1−P(A)</span> · <span class="m">P(A∪B)=P(A)+P(B)−P(A∩B)</span></p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Probabilidad de número par al lanzar un dado.</p><div class="sol"><strong>Solución:</strong> Favorables: {2,4,6}=3. Total: 6. <span class="m">P=1/2</span>.</div></div><div class="exo"><div class="lbl">Ejercicio</div><p>30 alumnos, 18 practican deporte. ¿P(elegido practica deporte)?</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">P=18/30=3/5=0.6</span>.</div></div>`},
+c07:{badge:'Cap. 07 · 1.º Bach.',title:'Números complejos',desc:'Forma binómica, módulo, argumento y forma polar.',body:`<h2>Definición y forma binómica</h2><div class="def"><div class="lbl">Número complejo</div><p><span class="m">z=a+bi</span> con <span class="m">i²=−1</span>. Parte real <span class="m">a</span>, parte imaginaria <span class="m">b</span>. Conjugado: <span class="m">z̄=a−bi</span>.</p></div><div class="thm"><div class="lbl">Operaciones</div><p>Suma: <span class="m">(a+bi)+(c+di)=(a+c)+(b+d)i</span>. Producto: distributiva con <span class="m">i²=−1</span>. División: multiplicar por el conjugado del denominador.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Calcular <span class="m">(2+3i)(1−i)</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">2−2i+3i−3i²=5+i</span>.</div></div><h2>Módulo, argumento y forma polar</h2><div class="def"><div class="lbl">Módulo y argumento</div><p><span class="m">|z|=√(a²+b²)</span>. Argumento <span class="m">θ</span>: <span class="m">cos θ=a/|z|</span>, <span class="m">sen θ=b/|z|</span>, con <span class="m">θ∈(−π,π]</span>.</p></div><div class="thm"><div class="lbl">Forma polar</div><p><span class="m">z=r(cos θ+i·sen θ)</span>. Producto: <span class="m">|z₁z₂|=r₁r₂</span> y <span class="m">arg(z₁z₂)=θ₁+θ₂</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Módulo y argumento de <span class="m">z=−1+i</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">|z|=√2</span>. <span class="m">θ=3π/4</span> (2.º cuadrante).</div></div>`},
+c08:{badge:'Cap. 08 · 1.º Bach.',title:'Álgebra matricial',desc:'Matrices, operaciones, determinantes e inversa.',body:`<h2>Definición y operaciones</h2><div class="def"><div class="lbl">Matriz</div><p>Tabla de <span class="m">m×n</span> números reales. Suma: misma dimensión, elemento a elemento. Producto <span class="m">AB</span>: columnas de A = filas de B. El producto matricial no es conmutativo.</p></div><h2>Determinante</h2><div class="def"><div class="lbl">Determinante 2×2</div><p><span class="m">det(A)=ad−bc</span> para <span class="m">A=[[a,b],[c,d]]</span>. Para 3×3 se usa la regla de Sarrus. <span class="m">det(A)=0</span> ⟺ A es singular.</p></div><h2>Matriz inversa</h2><div class="def"><div class="lbl">Inversa</div><p>Si <span class="m">det(A)≠0</span>, existe <span class="m">A⁻¹</span> tal que <span class="m">AA⁻¹=I</span>. Para 2×2: <span class="m">A⁻¹=(1/det)·[[d,−b],[−c,a]]</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Calcular la inversa de <span class="m">A=[[2,1],[5,3]]</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">det=6−5=1</span>. <span class="m">A⁻¹=[[3,−1],[−5,2]]</span>.</div></div>`},
+c09:{badge:'Cap. 09 · 1.º Bach.',title:'Sistemas de ecuaciones lineales',desc:'Método de Gauss, regla de Cramer y discusión de sistemas.',body:`<h2>Clasificación</h2><div class="def"><div class="lbl">Tipos</div><p>Compatible determinado (solución única), compatible indeterminado (infinitas soluciones), incompatible (sin solución).</p></div><div class="thm"><div class="lbl">Rouché-Frobenius</div><p>Compatible ⟺ <span class="m">rg(A)=rg(A|b)</span>. Determinado si además <span class="m">rg=n</span> (número de incógnitas).</p></div><h2>Método de Gauss</h2><p>Se transforma <span class="m">(A|b)</span> en forma escalonada mediante operaciones elementales de fila. Luego se resuelve por sustitución regresiva.</p><div class="ex"><div class="lbl">Ejemplo</div><p>Resolver <span class="m">x+y=3</span>, <span class="m">2x−y=0</span>.</p><div class="sol"><strong>Gauss:</strong> F2−2·F1 → <span class="m">−3y=−6→y=2</span>. Regresiva: <span class="m">x=1</span>.</div></div><h2>Regla de Cramer</h2><div class="thm"><div class="lbl">Cramer</div><p>Si <span class="m">det(A)≠0</span>: <span class="m">xᵢ=det(Aᵢ)/det(A)</span>, donde <span class="m">Aᵢ</span> es A con la columna i sustituida por el vector de términos independientes.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Discutir según <span class="m">k</span>: <span class="m">x+ky=1</span>, <span class="m">kx+y=1</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">det=1−k²</span>. <span class="m">k≠±1</span>: C.D. <span class="m">k=1</span>: C.I. (<span class="m">x+y=1</span>). <span class="m">k=−1</span>: incompatible.</div></div>`},
+c10:{badge:'Cap. 10 · 1.º Bach.',title:'Geometría analítica',desc:'Rectas y planos en el espacio, distancias y ángulos.',body:`<h2>Ecuaciones de la recta</h2><div class="def"><div class="lbl">Forma vectorial</div><p><span class="m">r:(x,y,z)=(x₀,y₀,z₀)+t·(a,b,c)</span>, con <span class="m">(a,b,c)</span> vector director.</p></div><h2>Ecuación del plano</h2><div class="def"><div class="lbl">Ecuación general</div><p><span class="m">ax+by+cz+d=0</span>, con vector normal <span class="m">n⃗=(a,b,c)</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Plano por <span class="m">P=(1,0,2)</span> con normal <span class="m">(3,−1,2)</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">3(x−1)−y+2(z−2)=0→3x−y+2z−7=0</span>.</div></div><h2>Distancias</h2><div class="thm"><div class="lbl">Punto-plano</div><p><span class="m">d(P,π)=|ax₀+by₀+cz₀+d|/√(a²+b²+c²)</span></p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Distancia de <span class="m">(1,2,3)</span> al plano <span class="m">x+2y−2z+1=0</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">d=|1+4−6+1|/3=0</span>. El punto pertenece al plano.</div></div>`},
+c11:{badge:'Cap. 11 · 1.º Bach.',title:'Funciones y límites',desc:'Límites, continuidad, ramas infinitas y asíntotas.',body:`<h2>Límite de una función</h2><div class="def"><div class="lbl">Definición intuitiva</div><p><span class="m">lim[x→a]f(x)=L</span> si <span class="m">f(x)</span> se acerca a <span class="m">L</span> cuando <span class="m">x→a</span>. El límite existe ⟺ los límites laterales coinciden.</p></div><div class="ex"><div class="lbl">Ejemplo — indeterminación 0/0</div><p><span class="m">lim[x→2](x²−4)/(x−2)</span>.</p><div class="sol"><strong>Solución:</strong> Factorizamos: <span class="m">(x−2)(x+2)/(x−2)=x+2→4</span>.</div></div><h2>Continuidad</h2><div class="def"><div class="lbl">Definición</div><p><span class="m">f</span> es continua en <span class="m">a</span> si: (1) <span class="m">f(a)</span> existe; (2) existe el límite; (3) coinciden. La discontinuidad puede ser evitable, de salto o esencial.</p></div><h2>Asíntotas</h2><div class="thm"><div class="lbl">Tipos</div><p>Vertical <span class="m">x=a</span>: si <span class="m">|f(x)|→∞</span> cuando <span class="m">x→a</span>. Horizontal <span class="m">y=L</span>: si <span class="m">f(x)→L</span> cuando <span class="m">x→±∞</span>. Oblicua <span class="m">y=mx+b</span>: <span class="m">m=lim f(x)/x</span>, <span class="m">b=lim(f(x)−mx)</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Asíntotas de <span class="m">f(x)=(x²+1)/(x−1)</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">A.V.: <span class="m">x=1</span>. A.H.: ninguna. A.O.: <span class="m">y=x+1</span>.</div></div>`},
+c12:{badge:'Cap. 12 · 1.º Bach.',title:'Derivadas',desc:'Definición, reglas de derivación, regla de la cadena y recta tangente.',body:`<h2>Definición y tangente</h2><div class="def"><div class="lbl">Derivada</div><p><span class="m">f'(a)=lim[h→0](f(a+h)−f(a))/h</span>. Toda función derivable es continua.</p></div><div class="thm"><div class="lbl">Recta tangente</div><p>En <span class="m">(a,f(a))</span>: <span class="m">y−f(a)=f'(a)·(x−a)</span>.</p></div><h2>Reglas de derivación</h2><div class="thm"><div class="lbl">Reglas básicas</div><p><span class="m">(c)'=0</span> · <span class="m">(xⁿ)'=nxⁿ⁻¹</span> · <span class="m">(fg)'=f'g+fg'</span> · <span class="m">(f/g)'=(f'g−fg')/g²</span></p></div><div class="thm"><div class="lbl">Regla de la cadena</div><p>Si <span class="m">h=f∘g</span>: <span class="m">h'(x)=f'(g(x))·g'(x)</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Derivar <span class="m">h(x)=(3x²+1)⁵</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">h'=5(3x²+1)⁴·6x=30x(3x²+1)⁴</span>.</div></div><div class="thm"><div class="lbl">Tabla de derivadas usuales</div><p><span class="m">(eˣ)'=eˣ</span> · <span class="m">(ln x)'=1/x</span> · <span class="m">(sen x)'=cos x</span> · <span class="m">(cos x)'=−sen x</span> · <span class="m">(√x)'=1/(2√x)</span></p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Tangente a <span class="m">f(x)=x²−3x</span> en <span class="m">x=2</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">f(2)=−2</span>, <span class="m">f'(2)=1</span>. Tangente: <span class="m">y=x−4</span>.</div></div>`},
+c13:{badge:'Cap. 13 · 1.º Bach.',title:'Aplicaciones de la derivada',desc:'Monotonía, extremos relativos, concavidad y representación de funciones.',body:`<h2>Monotonía y extremos</h2><div class="thm"><div class="lbl">Criterio de la derivada</div><p><span class="m">f'>0</span> → creciente. <span class="m">f'&lt;0</span> → decreciente. Los puntos críticos son los ceros de <span class="m">f'</span>.</p></div><div class="thm"><div class="lbl">Criterio de la segunda derivada</div><p>Si <span class="m">f'(a)=0</span>: <span class="m">f''(a)>0</span> → mínimo relativo; <span class="m">f''(a)&lt;0</span> → máximo relativo.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Extremos de <span class="m">f(x)=x³−3x</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">f'=3x²−3=0→x=±1</span>. Máximo en <span class="m">x=−1</span>, mínimo en <span class="m">x=1</span>.</div></div><h2>Concavidad e inflexión</h2><div class="def"><div class="lbl">Definición</div><p><span class="m">f''>0</span> → cóncava hacia arriba. <span class="m">f''&lt;0</span> → cóncava hacia abajo. El punto de inflexión es donde cambia la concavidad.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Monotonía de <span class="m">f(x)=x⁴−4x²</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">f'=4x(x²−2)=0→x=0,±√2</span>. Decreciente en <span class="m">(−∞,−√2)</span> y <span class="m">(0,√2)</span>; creciente en <span class="m">(−√2,0)</span> y <span class="m">(√2,+∞)</span>.</div></div>`},
+c14:{badge:'Cap. 14 · 1.º Bach.',title:'Probabilidad condicionada',desc:'Probabilidad condicionada, teorema de Bayes y variables aleatorias discretas.',body:`<h2>Probabilidad condicionada</h2><div class="def"><div class="lbl">Definición</div><p><span class="m">P(A|B)=P(A∩B)/P(B)</span>. Es la probabilidad de A sabiendo que B ha ocurrido. Regla del producto: <span class="m">P(A∩B)=P(A|B)·P(B)</span>.</p></div><h2>Teorema de Bayes</h2><div class="thm"><div class="lbl">Fórmula</div><p><span class="m">P(Aᵢ|B)=P(B|Aᵢ)·P(Aᵢ)/ΣⱼP(B|Aⱼ)·P(Aⱼ)</span>, donde <span class="m">{Aᵢ}</span> es una partición del espacio muestral.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Dos urnas: U1 (3 rojas, 2 blancas), U2 (1 roja, 4 blancas). Se elige urna al azar y sale roja. ¿P(era U1)?</p><div class="sol"><strong>Solución:</strong> <span class="m">P(R)=1/2·3/5+1/2·1/5=2/5</span>. <span class="m">P(U1|R)=(3/10)/(2/5)=3/4</span>.</div></div><h2>Variable aleatoria discreta</h2><div class="def"><div class="lbl">Esperanza y varianza</div><p><span class="m">E(X)=ΣxᵢP(X=xᵢ)</span>. <span class="m">Var(X)=E(X²)−[E(X)]²</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>X toma valores 0,1,2 con probabilidades 0.2, 0.5, 0.3. Calcular E(X).</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">E(X)=0·0.2+1·0.5+2·0.3=1.1</span>.</div></div>`},
+c15:{badge:'Cap. 15 · 2.º Bach.',title:'Álgebra lineal avanzada',desc:'Rango, valores propios y diagonalización.',body:`<h2>Rango de una matriz</h2><div class="def"><div class="lbl">Rango</div><p>Número máximo de filas linealmente independientes. Se calcula reduciendo a forma escalonada: el rango es el número de filas no nulas.</p></div><h2>Valores y vectores propios</h2><div class="def"><div class="lbl">Definición</div><p><span class="m">λ</span> es valor propio de A si existe <span class="m">v⃗≠0⃗</span> con <span class="m">Av⃗=λv⃗</span>. Se obtienen resolviendo <span class="m">det(A−λI)=0</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Valores propios de <span class="m">A=[[3,1],[0,2]]</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">det(A−λI)=(3−λ)(2−λ)=0→λ₁=3,λ₂=2</span>.</div></div><h2>Diagonalización</h2><div class="thm"><div class="lbl">Criterio</div><p>A es diagonalizable si tiene n vectores propios l.i. Entonces <span class="m">A=PDP⁻¹</span>, D diagonal con los valores propios, P con los vectores propios como columnas.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Vectores propios de <span class="m">A=[[3,1],[0,2]]</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">Para <span class="m">λ=3</span>: <span class="m">v=(1,0)</span>. Para <span class="m">λ=2</span>: <span class="m">v=(−1,1)</span>.</div></div>`},
+c16:{badge:'Cap. 16 · 2.º Bach.',title:'Geometría en el espacio',desc:'Posición relativa de rectas y planos, distancias y ángulos.',body:`<h2>Posición relativa de rectas</h2><p>Dos rectas pueden ser: secantes (se cortan), paralelas (misma dirección, no se cortan), coincidentes, o cruzadas (no paralelas, no se cortan). Se estudia resolviendo el sistema de ecuaciones paramétricas.</p><h2>Posición relativa de planos</h2><div class="thm"><div class="lbl">Criterio</div><p>Normales proporcionales y planos distintos → paralelos. Misma ecuación salvo factor → coincidentes. Normales no proporcionales → secantes (intersección en una recta).</p></div><h2>Ángulos</h2><div class="def"><div class="lbl">Ángulo entre planos</div><p><span class="m">cos θ=|n₁⃗·n₂⃗|/(|n₁⃗|·|n₂⃗|)</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Posición relativa de <span class="m">π₁:x+y+z=1</span> y <span class="m">π₂:2x+2y+2z=3</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">Normales proporcionales, planos distintos → paralelos.</div></div>`},
+c17:{badge:'Cap. 17 · 2.º Bach.',title:'Cálculo integral',desc:'Primitivas, integral definida, regla de Barrow y cálculo de áreas.',body:`<h2>Primitivas</h2><div class="def"><div class="lbl">Primitiva</div><p><span class="m">F</span> es primitiva de <span class="m">f</span> si <span class="m">F'(x)=f(x)</span>. Dos primitivas difieren en una constante.</p></div><div class="thm"><div class="lbl">Integrales inmediatas</div><p><span class="m">∫xⁿdx=xⁿ⁺¹/(n+1)+C</span> · <span class="m">∫(1/x)dx=ln|x|+C</span> · <span class="m">∫eˣdx=eˣ+C</span> · <span class="m">∫sen x dx=−cos x+C</span></p></div><h2>Regla de Barrow</h2><div class="thm"><div class="lbl">Regla de Barrow</div><p>Si F es primitiva de f continua en [a,b]: <span class="m">∫[a,b]f(x)dx=F(b)−F(a)</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Calcular <span class="m">∫[0,2](3x²−2x)dx</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">F(x)=x³−x²</span>. <span class="m">F(2)−F(0)=4</span>.</div></div><h2>Cálculo de áreas</h2><p>Área entre dos curvas con <span class="m">f≥g</span> en [a,b]:</p><code class="mb">A = ∫[a,b] (f(x) − g(x)) dx</code><div class="exo"><div class="lbl">Ejercicio</div><p>Área entre <span class="m">f(x)=x²</span> y <span class="m">g(x)=x</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">Intersección: <span class="m">x=0,1</span>. <span class="m">A=∫[0,1](x−x²)dx=1/6</span>.</div></div>`},
+c18:{badge:'Cap. 18 · 2.º Bach.',title:'Técnicas de integración',desc:'Cambio de variable, integración por partes y fracciones simples.',body:`<h2>Cambio de variable</h2><div class="thm"><div class="lbl">Sustitución</div><p>Si el integrando contiene <span class="m">f(g(x))·g'(x)</span>, hacer <span class="m">u=g(x)</span>, <span class="m">du=g'(x)dx</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Calcular <span class="m">∫2x·(x²+1)⁴dx</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">u=x²+1</span> → <span class="m">∫u⁴du=u⁵/5+C=(x²+1)⁵/5+C</span>.</div></div><h2>Integración por partes</h2><div class="thm"><div class="lbl">Fórmula</div><p><span class="m">∫u·dv=u·v−∫v·du</span>. Regla LIATE para elegir u: Logaritmos, Inverso trig., Algebraicas, Trigonométricas, Exponenciales.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Calcular <span class="m">∫x·eˣdx</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">u=x</span>, <span class="m">dv=eˣdx</span> → <span class="m">x·eˣ−eˣ+C=eˣ(x−1)+C</span>.</div></div><div class="exo"><div class="lbl">Ejercicio</div><p>Calcular <span class="m">∫x·ln(x)dx</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">u=ln x</span>, <span class="m">dv=x dx</span> → <span class="m">x²ln(x)/2−x²/4+C</span>.</div></div>`},
+c19:{badge:'Cap. 19 · 2.º Bach.',title:'Funciones trascendentes',desc:'Exponenciales, logaritmos y funciones trigonométricas: derivadas e integrales.',body:`<h2>Función exponencial y logarítmica</h2><div class="def"><div class="lbl">f(x) = eˣ</div><p>Dominio ℝ, recorrido (0,+∞), siempre creciente. <span class="m">(eˣ)'=eˣ</span>. Para base a: <span class="m">(aˣ)'=aˣ·ln a</span>.</p></div><div class="def"><div class="lbl">f(x) = ln x</div><p>Inversa de eˣ. Dominio (0,+∞). <span class="m">(ln x)'=1/x</span>. <span class="m">ln(ab)=ln a+ln b</span>, <span class="m">ln(aⁿ)=n·ln a</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Derivar <span class="m">f(x)=ln(x²+1)</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">f'(x)=2x/(x²+1)</span>.</div></div><h2>Funciones trigonométricas</h2><div class="thm"><div class="lbl">Derivadas e integrales</div><p><span class="m">(sen x)'=cos x</span> · <span class="m">(cos x)'=−sen x</span> · <span class="m">(tan x)'=1/cos²x</span><br><span class="m">∫sen x dx=−cos x+C</span> · <span class="m">∫cos x dx=sen x+C</span></p></div><div class="exo"><div class="lbl">Ejercicio</div><p>Calcular <span class="m">∫cos(x)·e^(sen x)dx</span>.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol">Cambio <span class="m">u=sen x</span>, <span class="m">du=cos x dx</span> → <span class="m">∫eᵘdu=e^(sen x)+C</span>.</div></div>`},
+c20:{badge:'Cap. 20 · 2.º Bach.',title:'Distribuciones de probabilidad',desc:'Binomial, distribución normal y contraste de hipótesis.',body:`<h2>Distribución binomial B(n,p)</h2><div class="def"><div class="lbl">Definición</div><p>Modela el número de éxitos en n pruebas independientes con probabilidad p. <span class="m">P(X=k)=C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</span>. <span class="m">E(X)=np</span>, <span class="m">σ²=np(1−p)</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Moneda, 4 lanzamientos. P(exactamente 3 caras)?</p><div class="sol"><strong>Solución:</strong> <span class="m">P(X=3)=C(4,3)·(0.5)⁴·4=0.25</span>.</div></div><h2>Distribución normal N(μ,σ)</h2><div class="def"><div class="lbl">Propiedades</div><p>Simétrica respecto a μ. Tipificación: <span class="m">Z=(X−μ)/σ</span> ~ N(0,1). Regla empírica: 68% en (μ±σ), 95% en (μ±2σ).</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>X~N(10,2). Calcular P(X&lt;13).</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">Z=(13−10)/2=1.5</span>. De tabla: <span class="m">Φ(1.5)≈0.9332</span>.</div></div>`},
+c21:{badge:'Cap. 21 · 2.º Bach.',title:'Estadística inferencial',desc:'Muestras, estimación e intervalos de confianza para la media y la proporción.',body:`<h2>Muestras y parámetros</h2><div class="def"><div class="lbl">Teorema central del límite</div><p>Para n≥30, la distribución de <span class="m">x̄</span> se aproxima a <span class="m">N(μ,σ/√n)</span>, independientemente de la distribución original.</p></div><h2>Intervalo de confianza para la media</h2><div class="thm"><div class="lbl">Fórmula (σ conocida)</div><p><span class="m">IC=x̄±z_(α/2)·σ/√n</span>. Para confianza 95%: <span class="m">z=1.96</span>.</p></div><div class="ex"><div class="lbl">Ejemplo</div><p>Muestra de 100 personas, <span class="m">x̄=170 cm</span>, <span class="m">σ=8 cm</span>. IC 95%.</p><div class="sol"><strong>Solución:</strong> <span class="m">170±1.96·8/10=170±1.568</span> → IC=(168.43, 171.57).</div></div><h2>Intervalo de confianza para la proporción</h2><div class="thm"><div class="lbl">Fórmula</div><p><span class="m">IC=p̂±z_(α/2)·√(p̂(1−p̂)/n)</span>.</p></div><div class="exo"><div class="lbl">Ejercicio</div><p>400 encuestas, 240 votan sí. IC 95% para la proporción real.</p><span class="tsol" onclick="ts(this)">Ver solución</span><div class="hsol"><span class="m">p̂=0.6</span>. <span class="m">IC=0.6±1.96·√(0.24/400)=0.6±0.048</span> → (0.552, 0.648).</div></div>`},
+c22:{badge:'Cap. 22 · 2.º Bach.',title:'Repaso EBAU',desc:'Problemas tipo de selectividad organizados por bloques temáticos.',body:`<h2>Álgebra y sistemas</h2><div class="ex"><div class="lbl">Problema tipo</div><p>Dada <span class="m">A=[[1,2],[3,4]]</span>, calcular <span class="m">A²−5A+2I</span>.</p><div class="sol"><strong>Método:</strong> Calcular A² por multiplicación matricial, luego aplicar la combinación lineal elemento a elemento.</div></div><h2>Geometría analítica</h2><div class="ex"><div class="lbl">Problema tipo</div><p>Recta por <span class="m">(1,0,−1)</span> perpendicular al plano <span class="m">2x−y+3z=5</span>.</p><div class="sol"><strong>Solución:</strong> Vector director = normal al plano: <span class="m">(2,−1,3)</span>. Ecuación: <span class="m">(x,y,z)=(1,0,−1)+t(2,−1,3)</span>.</div></div><h2>Cálculo diferencial e integral</h2><div class="ex"><div class="lbl">Problema tipo</div><p>Extremos de <span class="m">f(x)=x·e^(−x)</span>.</p><div class="sol"><strong>Solución:</strong> <span class="m">f'=e^(−x)(1−x)=0→x=1</span>. Máximo relativo en <span class="m">x=1</span> con <span class="m">f(1)=1/e</span>.</div></div><h2>Probabilidad y estadística</h2><div class="ex"><div class="lbl">Problema tipo</div><p>X~N(50,10). Hallar P(40&lt;X&lt;65).</p><div class="sol"><strong>Solución:</strong> <span class="m">P(−1&lt;Z&lt;1.5)=Φ(1.5)−Φ(−1)=0.9332−0.1587=0.7745</span>.</div></div><div class="callout" style="margin-top:24px"><div class="callout-lbl">Consejo EBAU</div><p>Leer el enunciado entero antes de empezar. Justificar cada paso con el teorema utilizado. Verificar la coherencia de los resultados.</p></div>`}
+};
+let cur=null;
+function open_(id){cur=id;render(id);document.getElementById('modal-bg').classList.add('open');document.body.style.overflow='hidden'}
+function render(id){const c=C[id];if(!c)return;document.getElementById('m-badge').textContent=c.badge;document.getElementById('m-title').textContent=c.title;document.getElementById('m-desc').textContent=c.desc;document.getElementById('m-body').innerHTML=c.body;const idx=ORDER.indexOf(id);const prev=ORDER.slice(0,idx).reverse().find(x=>C[x]);const next=ORDER.slice(idx+1).find(x=>C[x]);const bp=document.getElementById('m-prev');const bn=document.getElementById('m-next');if(prev){bp.style.display='flex';document.getElementById('m-prev-t').textContent=C[prev].title}else{bp.style.display='none'}if(next){bn.style.display='flex';document.getElementById('m-next-t').textContent=C[next].title}else{bn.style.display='none'}document.querySelector('.modal').scrollTop=0}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');document.body.style.overflow=''}
+function bgClose(e){if(e.target===document.getElementById('modal-bg'))closeModal()}
+function navModal(dir){const idx=ORDER.indexOf(cur);const candidates=dir>0?ORDER.slice(idx+1):ORDER.slice(0,idx).reverse();const next=candidates.find(x=>C[x]);if(next){cur=next;render(next)}}
+function ts(el){const s=el.nextElementSibling;s.classList.toggle('on');el.textContent=s.classList.contains('on')?'Ocultar solución':'Ver solución'}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
